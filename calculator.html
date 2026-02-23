@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f0f13;
+            --surface: #1a1a24;
+            --border: #2e2e42;
+            --accent: #7c6af7;
+            --accent2: #f7a26a;
+            --text: #e8e8f0;
+            --muted: #888899;
+            --code-bg: #13131a;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Syne', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 40px;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: var(--accent); }
+
+        /* Header */
+        .header {
+            border-left: 4px solid var(--accent);
+            padding-left: 20px;
+            margin-bottom: 40px;
+        }
+
+        .header .tag {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .header p {
+            color: var(--muted);
+            margin-top: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent2);
+            margin-bottom: 14px;
+        }
+
+        .card p {
+            color: #b8b8cc;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Tags for what I learned */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .tag-pill {
+            background: #1f1f30;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* Code block */
+        .code-card {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+            background: #16161f;
+        }
+
+        .code-header span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f57; }
+        .dot-yellow { background: #febc2e; }
+        .dot-green { background: #28c840; }
+
+        pre {
+            padding: 24px 20px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.83rem;
+            line-height: 1.7;
+            color: #c8c8e0;
+        }
+
+        /* Simple keyword highlighting via CSS isn't possible, but clean mono looks great */
+
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <div class="header">
+            <div class="tag">Project 01</div>
+            <h1>🧮 Calculator</h1>
+            <p>A terminal-based calculator with basic operations, power, square root, and history tracking.</p>
+        </div>
+
+        <div class="card">
+            <h2>What I Learned</h2>
+            <p>
+                The trickiest part was keeping the program running until the user wants to quit.
+                I used a <code style="color:var(--accent); font-family:'JetBrains Mono',monospace;">while True</code> loop for that.
+                I also learned how to organize code into functions so each operation is clean and reusable.
+            </p>
+            <div class="tags">
+                <span class="tag-pill">while True loop</span>
+                <span class="tag-pill">if / elif</span>
+                <span class="tag-pill">float()</span>
+                <span class="tag-pill">functions</span>
+                <span class="tag-pill">math.sqrt()</span>
+                <span class="tag-pill">history list</span>
+            </div>
+        </div>
+
+        <div class="code-card">
+            <div class="code-header">
+                <div class="dots">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                </div>
+                <span>calculator.py</span>
+            </div>
+            <pre>import math
+import os
+
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+
+def multiply(a, b):
+    return a * b
+
+def divide(a, b):
+    if b == 0:
+        return "Cannot divide by zero"
+    return a / b
+
+def power(a, b):
+    return a ** b
+
+def square_root(a):
+    if a &lt; 0:
+        return "Cannot take square root of a negative number"
+    return math.sqrt(a)
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+def show_menu():
+    print("\n--- Calculator ---")
+    print("1. Add")
+    print("2. Subtract")
+    print("3. Multiply")
+    print("4. Divide")
+    print("5. Power (a ** b)")
+    print("6. Square Root (√a)")
+    print("7. History")
+    print("8. Clear Screen")
+    print("9. Exit")
+
+history = []
+
+while True:
+    show_menu()
+    choice = input("Choose an option (1-9): ").strip()
+
+    if choice == "9":
+        print("Goodbye!")
+        break
+
+    if choice == "8":
+        clear_screen()
+        continue
+
+    if choice == "7":
+        if len(history) == 0:
+            print("History is empty.")
+        else:
+            print("\n--- History ---")
+            for item in history:
+                print(item)
+        continue
+
+    if choice == "6":
+        a = float(input("Enter a number: "))
+        result = square_root(a)
+        print("Result:", result)
+        if isinstance(result, (int, float)):
+            history.append(f"sqrt({a}) = {result}")
+        else:
+            history.append(f"sqrt({a}) -&gt; {result}")
+        continue
+
+    a = float(input("Enter first number: "))
+    b = float(input("Enter second number: "))
+
+    if choice == "1":
+        result = add(a, b)
+        expr = f"{a} + {b} = {result}"
+    elif choice == "2":
+        result = subtract(a, b)
+        expr = f"{a} - {b} = {result}"
+    elif choice == "3":
+        result = multiply(a, b)
+        expr = f"{a} * {b} = {result}"
+    elif choice == "4":
+        result = divide(a, b)
+        expr = f"{a} / {b} = {result}"
+    elif choice == "5":
+        result = power(a, b)
+        expr = f"{a} ** {b} = {result}"
+    else:
+        print("Invalid choice")
+        continue
+
+    print("Result:", result)
+    history.append(expr)</pre>
+        </div>
+
+    </div>
+</body>
+</html>
