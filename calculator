@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator Project</title>
+    <style>
+        body { font-family: Arial; max-width: 800px; margin: 40px auto; padding: 20px; }
+        pre { background: #f4f4f4; padding: 15px; border-radius: 8px; overflow-x: auto; }
+        code { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>🧮 Calculator Project</h1>
+    <p>This was my first project. I learned how to use <strong>while loops</strong>, <strong>if/elif</strong>, and <strong>float()</strong> for user input.</p>
+
+    <h2>What I Learned</h2>
+    <p>The trickiest part was keeping the program running until the user wants to quit. I used a while True loop for that.</p>
+
+    <h2>The Code</h2>
+    <pre><code>
+import math
+import os
+
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+
+def multiply(a, b):
+    return a * b
+
+def divide(a, b):
+    if b == 0:
+        return "Cannot divide by zero"
+    return a / b
+
+def power(a, b):
+    return a ** b
+
+def square_root(a):
+    if a < 0:
+        return "Cannot take square root of a negative number"
+    return math.sqrt(a)
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+def show_menu():
+    print("\n--- Calculator ---")
+    print("1. Add")
+    print("2. Subtract")
+    print("3. Multiply")
+    print("4. Divide")
+    print("5. Power (a ** b)")
+    print("6. Square Root (√a)")
+    print("7. History")
+    print("8. Clear Screen")
+    print("9. Exit")
+
+history = []
+
+while True:
+    show_menu()
+    choice = input("Choose an option (1-9): ").strip()
+
+    if choice == "9":
+        print("Goodbye!")
+        break
+
+    if choice == "8":
+        clear_screen()
+        continue
+
+    if choice == "7":
+        if len(history) == 0:
+            print("History is empty.")
+        else:
+            print("\n--- History ---")
+            for item in history:
+                print(item)
+        continue
+
+    # Square root needs 1 number
+    if choice == "6":
+        a = float(input("Enter a number: "))
+        result = square_root(a)
+        print("Result:", result)
+
+        if isinstance(result, (int, float)):
+            history.append(f"sqrt({a}) = {result}")
+        else:
+            history.append(f"sqrt({a}) -> {result}")
+        continue
+
+    # Other operations need 2 numbers
+    a = float(input("Enter first number: "))
+    b = float(input("Enter second number: "))
+
+    if choice == "1":
+        result = add(a, b)
+        expr = f"{a} + {b} = {result}"
+
+    elif choice == "2":
+        result = subtract(a, b)
+        expr = f"{a} - {b} = {result}"
+
+    elif choice == "3":
+        result = multiply(a, b)
+        expr = f"{a} * {b} = {result}"
+
+    elif choice == "4":
+        result = divide(a, b)
+        expr = f"{a} / {b} = {result}"
+
+    elif choice == "5":
+        result = power(a, b)
+        expr = f"{a} ** {b} = {result}"
+
+    else:
+        print("Invalid choice")
+        continue
+
+    print("Result:", result)
+    history.append(expr)
+    </code></pre>
+
+    <a href="index.html">← Back to Home</a>
+</body>
+</html>
