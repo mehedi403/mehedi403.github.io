@@ -1,2 +1,16 @@
-title: My Learning Notes
+title: Mehedi's Learning Notes
+description: A personal knowledge base where I store everything I learn
+url: "https://mehedi403.github.io"
+
 theme: minima
+
+minima:
+  skin: classic
+
+author:
+  name: Mehedi
+
+show_excerpts: true
+
+plugins:
+  - jekyll-feed
